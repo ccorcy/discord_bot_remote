@@ -59,6 +59,7 @@ export default class Sounds extends Vue {
     position: relative;
     background-position: center;
     background-size: contain;
+    background-repeat: no-repeat;
     .delete-sound {
       width: 24px;
       height: 24px;
