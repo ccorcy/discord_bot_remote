@@ -5,10 +5,9 @@ export interface ISound {
   name: string;
   filename: string;
 }
-
-export default class Api {
+class Api {
   public instance = axios.create({
-    baseURL: 'https://dank-discord-bot.herokuapp.com/',
+    baseURL: 'http://localhost:3000/',
     timeout: 10000,
   });
 
@@ -36,3 +35,5 @@ export default class Api {
     await this.instance.delete(`/sounds/${soundId}`);
   }
 }
+
+export default new Api();
