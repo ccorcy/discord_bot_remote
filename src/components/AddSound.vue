@@ -17,14 +17,19 @@
       <label for="picture">Sound picture</label>
       <input id="picture" type="text" v-model="picture">
     </div>
-    <button @click="addSound()">Add sound</button>
+    <Button class="button" @click="addSound()">Add sound</Button>
   </div>
 </template>
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import Button from '@/components/core/Button.vue';
 import Api from '@/api';
 
-@Options({})
+@Options({
+  components: {
+    Button,
+  },
+})
 export default class AddSounds extends Vue {
   public name: string = '';
   public filename: string = '';
@@ -52,7 +57,7 @@ export default class AddSounds extends Vue {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
   .add-sound {
     width: 50%;
     min-width: 200px;
@@ -80,18 +85,14 @@ export default class AddSounds extends Vue {
     }
   }
 
-  button {
-    margin-top: 12px;
+  .button {
     width: 100%;
+    margin: 12px auto;
     min-width: 200px;
     max-width: 500px;
-    height: 25px;
     border: none;
     color: white;
     border-radius: 6px;
-    background: #c21500;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #ffc500, #c21500);
-    background: linear-gradient(to right, #ffc500, #c21500);
     font-weight: bolder;
     outline: none;
   }

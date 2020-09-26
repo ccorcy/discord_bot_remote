@@ -41,6 +41,14 @@ class Api {
   public async deleteSound(soundId: string) {
     await this.instance.delete(`/sounds/${soundId}`);
   }
+
+  public async getStatus() {
+    return this.instance.get('/bot/status');
+  }
+
+  public async summon(channelName: string) {
+    return this.instance.get(`/bot/summon/${channelName}`);
+  }
 }
 
 export default new Api();
