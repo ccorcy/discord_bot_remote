@@ -30,5 +30,45 @@ export default class AddSounds extends Vue {
 }
 </script>
 <style lang="scss">
+  .add-sound {
+    width: 50%;
+    min-width: 200px;
+    max-width: 500px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+  }
 
+  .form-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    label {
+      font-weight: bold;
+    }
+    input {
+      height: 25px;
+      width: 100%;
+      outline: none;
+      border: none;
+      border-radius: 2px;
+    }
+  }
+
+  button {
+    margin-top: 12px;
+    width: 100%;
+    min-width: 200px;
+    max-width: 500px;
+    height: 25px;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    background: #c21500;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ffc500, #c21500);
+    background: linear-gradient(to right, #ffc500, #c21500);
+    font-weight: bolder;
+  }
 </style>
