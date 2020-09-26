@@ -3,7 +3,10 @@ import axios from 'axios';
 export interface ISound {
   id?: string;
   name: string;
-  filename: string;
+  filename?: string;
+  isDefault?: boolean;
+  url?: string;
+  picture?: string;
 }
 class Api {
   public instance = axios.create({
@@ -16,10 +19,14 @@ class Api {
     return response.data;
   }
 
-  public async addSound({ name, filename }: ISound) {
+  public async addSound({
+    name, filename, url, picture,
+  }: ISound) {
     const response = await this.instance.post('/sounds/add_sound', {
       name,
       filename,
+      url,
+      picture,
     });
     return response;
   }

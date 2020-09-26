@@ -8,6 +8,15 @@
       <label for="filename">Filename</label>
       <input id="filename" type="text" v-model="filename">
     </div>
+    <div>OR</div>
+    <div class="form-input">
+      <label for="url">Youtube URL</label>
+      <input id="url" type="text" v-model="url">
+    </div>
+    <div class="form-input">
+      <label for="picture">Sound picture</label>
+      <input id="picture" type="text" v-model="picture">
+    </div>
     <button @click="addSound()">Add sound</button>
   </div>
 </template>
@@ -19,13 +28,27 @@ import Api from '@/api';
 export default class AddSounds extends Vue {
   public name: string = '';
   public filename: string = '';
+  public url: string = '';
+  public picture: string = '';
+  public $store!: any;
+
+  public created() {
+    console.log('this :>> ', this);
+  }
 
   public async addSound() {
-    if (this.filename && this.name) {
-      await Api.addSound({ name: this.name, filename: this.filename });
-      this.name = '';
-      this.filename = '';
-    }
+    if (!this.name || (!this.filename && !this.url)) return;
+    await Api.addSound({
+      name: this.name,
+      filename: this.filename,
+      url: this.url,
+      picture: this.picture,
+    });
+    this.name = '';
+    this.filename = '';
+    this.url = '';
+    this.picture = '';
+    this.$store.dispatch('getSounds');
   }
 }
 </script>
@@ -70,5 +93,6 @@ export default class AddSounds extends Vue {
     background: -webkit-linear-gradient(to right, #ffc500, #c21500);
     background: linear-gradient(to right, #ffc500, #c21500);
     font-weight: bolder;
+    outline: none;
   }
 </style>

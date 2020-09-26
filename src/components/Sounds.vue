@@ -1,8 +1,10 @@
 <template>
   <div class="sounds">
-    <div class="sound" v-for="sound in sounds" :key="sound"
-      @click="playSound(sound)">
-      <div class="delete-sound" @click.stop="deleteSound(sound.id)">x</div>
+    <div v-if="!$store.state.sounds.length">No sound</div>
+    <div class="sound" v-for="sound in $store.state.sounds" :key="sound"
+      @click="playSound(sound)"
+      :style="{backgroundImage: `url(${sound.picture})`}">
+      <div v-if="!sound.isdefault" class="delete-sound" @click.stop="deleteSound(sound.id)">x</div>
       {{sound.name}}
     </div>
   </div>
@@ -13,6 +15,7 @@ import { Options, Vue } from 'vue-class-component';
 
 @Options({})
 export default class Sounds extends Vue {
+  public $store!: any;
   public sounds: ISound[] = [];
 
   public mounted() {
@@ -29,7 +32,7 @@ export default class Sounds extends Vue {
   }
 
   private async getSounds() {
-    this.sounds = await api.getSounds();
+    this.$store.dispatch('getSounds');
   }
 }
 
@@ -54,23 +57,22 @@ export default class Sounds extends Vue {
     margin: 12px;
     border-radius: 25px;
     position: relative;
-  }
-
-  .sound .delete-sound {
-    width: 24px;
-    height: 24px;
-    background: red;
-    position: absolute;
-    top: -6px;
-    left: -6px;
-    border-radius: 12px;
-  }
-
-  .sound.active {
-    background: orange;
-  }
-
-  .sound:active {
-    transform: scale(0.95);
+    background-position: center;
+    background-size: contain;
+    .delete-sound {
+      width: 24px;
+      height: 24px;
+      background: red;
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      border-radius: 12px;
+    }
+    &.active {
+      background: orange;
+    }
+    &:active {
+      transform: scale(0.95);
+    }
   }
 </style>
