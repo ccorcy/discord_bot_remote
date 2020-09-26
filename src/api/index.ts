@@ -10,7 +10,7 @@ export interface ISound {
 }
 class Api {
   public instance = axios.create({
-    baseURL: 'http://localhost:3000/',
+    baseURL: 'https://dank-discord-bot.herokuapp.com/',
     timeout: 10000,
   });
 
