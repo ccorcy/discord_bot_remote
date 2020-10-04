@@ -1,14 +1,17 @@
 <template>
   <div class="sounds">
     <div v-if="!$store.state.sounds.length">No sound</div>
-    <div class="sound" v-for="sound in $store.state.sounds" :key="sound"
-      @click="playSound(sound)"
+    <div class="sound" v-for="sound in $store.state.sounds" :key="sound">
+      <div class="sound__block" @click="playSound(sound)"
       :style="{backgroundImage: `url(${sound.picture})`}">
-      <div class="edit" v-if="$store.state.editMode">
-        <div v-if="!sound.isdefault" class="delete-sound"
-          @click.stop="deleteSound(sound.id)">x</div>
+        <div class="edit" v-if="$store.state.editMode">
+          <div v-if="!sound.isdefault" class="delete-sound"
+            @click.stop="deleteSound(sound.id)">x</div>
+        </div>
       </div>
-      {{sound.name}}
+      <div class="sound__name">
+        {{sound.name}}
+      </div>
     </div>
   </div>
 </template>
@@ -42,35 +45,53 @@ export default class Sounds extends Vue {
 </script>
 <style lang="scss">
   .sounds {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    margin: 100px 30px;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-rows: auto;
+    gap: 13px;
   }
 
   .sound {
     height: 100px;
     width: 100px;
+    color: #fff;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #333;
-    color: #fff;
-    transform: scale(1);
-    transition: all 250ms ease-in;
-    margin: 12px;
-    border-radius: 25px;
-    position: relative;
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    .delete-sound {
-      width: 24px;
-      height: 24px;
-      background: red;
-      position: absolute;
-      top: -6px;
-      left: -6px;
-      border-radius: 12px;
+    &__block {
+      flex-shrink: 0;
+      height: 80px;
+      width: 80px;
+      background: #333;
+      transform: scale(1);
+      transition: all 250ms ease-in;
+      border-radius: 25px;
+      position: relative;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      .delete-sound {
+        width: 24px;
+        height: 24px;
+        background: red;
+        position: absolute;
+        top: -6px;
+        left: -6px;
+        border-radius: 12px;
+      }
+    }
+    &__name {
+      flex-shrink: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100px;
+      margin-top: 6px;
+      color: #000;
+      font-weight: 500;
+      font-size: 14px;
     }
     &.active {
       background: orange;
