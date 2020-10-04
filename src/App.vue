@@ -1,9 +1,14 @@
 <template>
   <div>
     <div class="navbar">
-      <BotStatus></BotStatus>
+      <div class="left">
+        <BotStatus></BotStatus>
+      </div>
+      <div class="center">
+        <div class="navbar__title">Discord Bot remote</div>
+      </div>
+      <div class="right"></div>
     </div>
-    <h1>Discord Bot remote</h1>
     <Sounds></Sounds>
     <AddSound></AddSound>
   </div>
@@ -38,7 +43,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 80px;
+  --color-base: #3C75A9;
+  --color-error: #E02121;
+  --color-success: #27AE60;
 }
 * {
   box-sizing: border-box;
@@ -50,11 +58,36 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: auto;
+  height: 80px;
   color: #fff;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   padding: 12px;
+  z-index: 999;
+  background: var(--color-base);
+  .left, .right {
+    width: 25%;
+  }
+  .navbar__title {
+    font-weight: 900;
+    font-size: 36px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .navbar {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    &__title {
+      font-size: 20px !important;
+    }
+    .left {
+      width: auto;
+    }
+    .right {
+      display: none;
+    }
+  }
 }
 </style>
