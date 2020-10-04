@@ -75,6 +75,7 @@ export default class BotStatus extends Vue {
   }
   .top {
     font-weight: bold;
+    justify-content: flex-start;
   }
 
   .top, .bottom {

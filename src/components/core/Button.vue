@@ -20,7 +20,7 @@ export default class Button extends Vue {
       border-radius: 40px;
       cursor: pointer;
       user-select: none;
-      padding: 0px 0px 0px 0px;
+      padding: 4px;
       font-size: 12px;
       transform: scale(1);
       height: 22px;

@@ -1,29 +1,26 @@
 <template>
   <div class="add-sound">
+    <div class="add-sound__title">Add a sound</div>
     <div class="form-input">
       <label for="name">Name</label>
       <input id="name" type="text" v-model="name">
     </div>
     <div class="form-input">
-      <label for="filename">Filename</label>
-      <input id="filename" type="text" v-model="filename">
-    </div>
-    <div>OR</div>
-    <div class="form-input">
-      <label for="url">Youtube URL</label>
-      <input id="url" type="text" v-model="url">
+      <label for="url">Media source</label>
+      <input id="url" type="text" v-model="url" placeholder="Youtube URL">
     </div>
     <div class="form-input">
-      <label for="picture">Sound picture</label>
-      <input id="picture" type="text" v-model="picture">
+      <label for="picture">Picture</label>
+      <input id="picture" type="text" v-model="picture" placeholder="URL">
     </div>
-    <Button class="button" @click="addSound()">Add sound</Button>
+    <Button :style="'fill'" @click="addSound()">+ Add sound</Button>
   </div>
 </template>
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import Button from '@/components/core/Button.vue';
 import Api from '@/api';
+import { Emit } from 'vue-property-decorator';
 
 @Options({
   components: {
@@ -50,17 +47,29 @@ export default class AddSounds extends Vue {
     this.url = '';
     this.picture = '';
     this.$store.dispatch('getSounds');
+    this.soundAdded();
+  }
+
+  @Emit('soundAdded')
+  public soundAdded() {
+    return true;
   }
 }
 </script>
 <style lang="scss" scoped>
   .add-sound {
-    width: 50%;
-    min-width: 200px;
-    max-width: 500px;
-    margin: 20px auto;
+    margin: 20px auto 0px;
     display: flex;
     flex-direction: column;
+    position: relative !important;
+    padding: 20px;
+    min-width: 500px;
+    &__title {
+      font-weight: bold;
+      font-size: 26px;
+      line-height: 120%;
+      margin-bottom: 30px;
+    }
   }
 
   .form-input {
@@ -69,27 +78,32 @@ export default class AddSounds extends Vue {
     justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
+    min-width: 100%;
     label {
       font-weight: bold;
+      font-size: 18px;
     }
     input {
-      height: 25px;
+      margin-top: 12px;
+      margin-bottom: 20px;
+      height: 32px;
       width: 100%;
       outline: none;
       border: none;
-      border-radius: 2px;
+      background: #F4F5F8;
+      border-radius: 5px;
+      padding-left: 12px;
     }
   }
 
   .button {
-    width: 100%;
-    margin: 12px auto;
-    min-width: 200px;
-    max-width: 500px;
-    border: none;
-    color: white;
-    border-radius: 6px;
-    font-weight: bolder;
-    outline: none;
+    margin: 39px auto 0px;
+  }
+
+  @media screen and (max-width: 375px) {
+    .add-sound {
+      max-width: 300px;
+      min-width: 300px;
+    }
   }
 </style>

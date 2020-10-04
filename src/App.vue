@@ -10,7 +10,12 @@
       <div class="right"></div>
     </div>
     <Sounds></Sounds>
-    <AddSound></AddSound>
+    <Modal v-model:state.sync="addSoundModalState">
+      <AddSound @soundAdded="toggleAddSoundModal()"></AddSound>
+    </Modal>
+    <div class="add-sound">
+      <Button @click="toggleAddSoundModal()">+ Add sound</Button>
+    </div>
   </div>
 </template>
 
@@ -19,22 +24,33 @@ import { Options, Vue } from 'vue-class-component';
 import Sounds from '@/components/Sounds.vue';
 import AddSound from '@/components/AddSound.vue';
 import BotStatus from '@/components/BotStatus.vue';
+import Button from '@/components/core/Button.vue';
+import Modal from '@/components/core/Modal.vue';
 
 @Options({
   components: {
     Sounds,
     AddSound,
     BotStatus,
+    Button,
+    Modal,
   },
 })
 export default class App extends Vue {
+  public addSoundModalState: boolean = false;
 
+  public toggleAddSoundModal() {
+    this.addSoundModalState = !this.addSoundModalState;
+  }
 }
 </script>
 
 <style lang="scss">
 body {
   background: #bdc3c7;
+  &.noscroll {
+    overflow: hidden;
+  }
 }
 
 #app {
@@ -75,6 +91,17 @@ body {
   }
 }
 
+.add-sound {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  .button {
+    width: 132px;
+    height: 37px;
+  }
+}
+
 @media screen and (max-width: 750px) {
   .navbar {
     flex-direction: row-reverse;
@@ -90,4 +117,7 @@ body {
     }
   }
 }
+</style>
+<style lang="scss" scoped>
+
 </style>

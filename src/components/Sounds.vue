@@ -48,8 +48,7 @@ export default class Sounds extends Vue {
     display: grid;
     margin: 100px 30px;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    grid-template-rows: auto;
-    gap: 13px;
+    gap: 8px;
   }
 
   .sound {
@@ -80,6 +79,8 @@ export default class Sounds extends Vue {
         top: -6px;
         left: -6px;
         border-radius: 12px;
+        cursor: pointer;
+        z-index: 50;
       }
     }
     &__name {
