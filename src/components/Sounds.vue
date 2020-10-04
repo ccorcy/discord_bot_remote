@@ -4,7 +4,10 @@
     <div class="sound" v-for="sound in $store.state.sounds" :key="sound"
       @click="playSound(sound)"
       :style="{backgroundImage: `url(${sound.picture})`}">
-      <div v-if="!sound.isdefault" class="delete-sound" @click.stop="deleteSound(sound.id)">x</div>
+      <div class="edit" v-if="$store.state.editMode">
+        <div v-if="!sound.isdefault" class="delete-sound"
+          @click.stop="deleteSound(sound.id)">x</div>
+      </div>
       {{sound.name}}
     </div>
   </div>

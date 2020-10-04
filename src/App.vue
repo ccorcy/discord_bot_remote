@@ -63,7 +63,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px;
+  padding: 16px 30px 16px;
   z-index: 999;
   background: var(--color-base);
   .left, .right {

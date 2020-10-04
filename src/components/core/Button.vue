@@ -1,14 +1,15 @@
 <template>
-    <div class="button btn-grad">
+    <div class="button" :class="[style]">
       <slot></slot>
     </div>
 </template>
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { Emit } from 'vue-property-decorator';
+import { Emit, Prop } from 'vue-property-decorator';
 
 @Options({})
 export default class Button extends Vue {
+  @Prop() public style: 'fill' | 'outline' = 'fill';
   @Emit() public click() {
     this.$emit('click');
   }
@@ -16,34 +17,27 @@ export default class Button extends Vue {
 </script>
 <style lang="scss">
     .button {
-      padding: 6px 12px;
-      border-radius: 6px;
+      border-radius: 40px;
       cursor: pointer;
       user-select: none;
+      padding: 0px 0px 0px 0px;
+      font-size: 12px;
       transform: scale(1);
+      height: 22px;
+      width: 85px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .fill {
+      color: #fff;
+      background: var(--color-base);
+    }
+    .outline {
+      color: var(--color-base);
+      background: #fff;
     }
     .button:active {
       transform: scale(0.95);
-    }
-    .btn-grad {
-      background-image: linear-gradient(to right, #16222A 0%, #3A6073 51%, #16222A 100%)
-    }
-
-    .btn-grad {
-      text-align: center;
-      text-transform: uppercase;
-      transition: 0.5s;
-      background-size: 200% auto;
-      color: white;
-      box-shadow: 0 0 20px #16222A;
-      border-radius: 10px;
-      display: block;
-    }
-
-    .btn-grad:hover {
-      background-position: right center;
-      /* change the direction of the change here */
-      color: #fff;
-      text-decoration: none;
     }
 </style>

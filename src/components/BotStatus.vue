@@ -1,10 +1,13 @@
 <template>
-  <div>
-    Bot channel: <span v-if="!channelName" class="offline">Offline</span>
-    <span v-else class="online">{{channelName}}</span>
-  </div>
-  <div class="summon">
-    <Button @click="showSummon()">Summon</Button>
+  <div class="bot-status">
+    <div class="top">
+      Bot's channel:&nbsp;<span v-if="!channelName" class="offline">[offline]</span>
+      <span v-else>{{channelName}} <span class="online">[online]</span></span>
+    </div>
+    <div class="bottom">
+      <Button :style="'outline'" @click="toggleMove()">Move bot</Button>
+      <Button :style="'outline'" @click="toggleEditMode()">Edit sounds</Button>
+    </div>
   </div>
   <div v-if="summonState" class="summon-container">
     <input placeholder="Channel Name" type="text"
@@ -26,6 +29,7 @@ export default class BotStatus extends Vue {
   public channelName: string = '';
   public summonState: boolean = false;
   public summonChannelName: string = '';
+  public $store: any;
 
   public mounted() {
     this.getStatus();
@@ -34,8 +38,12 @@ export default class BotStatus extends Vue {
     }, 5000);
   }
 
-  public showSummon() {
-    this.summonState = true;
+  public toggleMove() {
+    this.summonState = !this.summonState;
+  }
+
+  public toggleEditMode() {
+    this.$store.dispatch('toggleEditMode');
   }
 
   public async summon() {
@@ -51,18 +59,33 @@ export default class BotStatus extends Vue {
 }
 </script>
 <style lang="scss">
-  .offline {
-    color: red;
+  .bot-status {
+    display: flex;
+    flex-flow: column;
+  }
+  .top {
+    .offline {
+      color: var(--color-error);
+    }
+
+    .online {
+      color: var(--color-success);
+    }
     font-weight: bold;
   }
 
-  .online {
-    color: limegreen;
-    font-weight: bold;
+  .top, .bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    .button {
+      margin-right: 11px;
+    }
   }
 
-  .summon {
-    margin-left: 16px;
+  .bottom {
+    margin-top: 7px;
   }
 
   .summon-container {
