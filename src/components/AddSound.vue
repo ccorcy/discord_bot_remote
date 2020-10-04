@@ -37,10 +37,6 @@ export default class AddSounds extends Vue {
   public picture: string = '';
   public $store!: any;
 
-  public created() {
-    console.log('this :>> ', this);
-  }
-
   public async addSound() {
     if (!this.name || (!this.filename && !this.url)) return;
     await Api.addSound({

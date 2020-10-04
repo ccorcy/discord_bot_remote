@@ -6,7 +6,10 @@
     </div>
     <div class="bottom">
       <Button :style="'outline'" @click="toggleMove()">Move bot</Button>
-      <Button :style="'outline'" @click="toggleEditMode()">Edit sounds</Button>
+      <Button :style="'outline'" @click="toggleEditMode()">
+        <span v-if="!$store.state.editMode">Edit sounds</span>
+        <span v-else class="online">Done</span>
+      </Button>
     </div>
   </div>
   <div v-if="summonState" class="summon-container">
@@ -63,14 +66,14 @@ export default class BotStatus extends Vue {
     display: flex;
     flex-flow: column;
   }
-  .top {
-    .offline {
-      color: var(--color-error);
-    }
+  .offline {
+    color: var(--color-error);
+  }
 
-    .online {
-      color: var(--color-success);
-    }
+  .online {
+    color: var(--color-success);
+  }
+  .top {
     font-weight: bold;
   }
 

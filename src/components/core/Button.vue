@@ -28,6 +28,7 @@ export default class Button extends Vue {
       display: flex;
       align-items: center;
       justify-content: center;
+      font-weight: bold;
     }
     .fill {
       color: #fff;
